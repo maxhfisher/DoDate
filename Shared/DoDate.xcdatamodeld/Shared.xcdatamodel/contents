@@ -5,7 +5,7 @@
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="dueDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DueDate" inverseName="doDates" inverseEntity="DueDate"/>
-        <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Topic" inverseName="doDates" inverseEntity="Topic"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="doDates" inverseEntity="Project"/>
     </entity>
     <entity name="DueDate" representedClassName="DueDate" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -13,18 +13,18 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="dueDate" inverseEntity="DoDate"/>
-        <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Topic" inverseName="dueDates" inverseEntity="Topic" spotlightIndexingEnabled="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="dueDates" inverseEntity="Project" spotlightIndexingEnabled="YES"/>
     </entity>
-    <entity name="Topic" representedClassName="Topic" syncable="YES" codeGenerationType="class">
+    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="topic" inverseEntity="DoDate"/>
-        <relationship name="dueDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DueDate" inverseName="topic" inverseEntity="DueDate"/>
+        <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="project" inverseEntity="DoDate"/>
+        <relationship name="dueDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DueDate" inverseName="project" inverseEntity="DueDate"/>
     </entity>
     <elements>
-        <element name="Topic" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="DueDate" positionX="-54" positionY="18" width="128" height="119"/>
         <element name="DoDate" positionX="-45" positionY="54" width="128" height="104"/>
+        <element name="DueDate" positionX="-54" positionY="18" width="128" height="119"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>

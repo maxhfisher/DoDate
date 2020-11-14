@@ -14,8 +14,41 @@ struct ContentView: View {
     var body: some View {
 		TabView {
 			NavigationView {
-				Text("Hello World")
+				Text("To Do")
 					.navigationTitle("DoDate")
+			}
+			.tabItem {
+				Image(systemName: "calendar")
+				Text("To Do")
+			}
+			
+			NavigationView {
+				Text("Projects")
+					.navigationTitle("Projects")
+			}
+			.tabItem {
+				Image(systemName: "hammer")
+				Text("Projects")
+			}
+			
+			NavigationView {
+				Text("Due Dates")
+					.navigationTitle("Due Dates")
+			}
+			.tabItem {
+				Image(systemName: "list.bullet.below.rectangle")
+				Text("Due Dates")
+					.accessibility(hint: Text("Dates that things are due"))
+			}
+			
+			NavigationView {
+				Text("Do Dates")
+					.navigationTitle("Do Dates")
+			}
+			.tabItem {
+				Image(systemName: "list.dash")
+				Text("Do Dates")
+					.accessibility(hint: Text("Dates when things are to be done"))
 			}
 		}
     }
