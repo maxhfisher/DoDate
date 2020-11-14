@@ -55,6 +55,7 @@
 		864D09B9255F92B000FAB092 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		864D09BD255F92B000FAB092 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		864D09BF255F92B000FAB092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		864D09DC255F930200FAB092 /* DoDate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoDate.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 		864D098E255F92AF00FAB092 = {
 			isa = PBXGroup;
 			children = (
+				864D09DC255F930200FAB092 /* DoDate.entitlements */,
 				864D0993255F92AF00FAB092 /* Shared */,
 				864D09A0255F92B000FAB092 /* iOS */,
 				864D09A7255F92B000FAB092 /* macOS */,
@@ -482,6 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoDate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XMH9YH7T9;
 				ENABLE_PREVIEWS = YES;
@@ -494,6 +497,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxhfisher.DoDate;
 				PRODUCT_NAME = DoDate;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -504,6 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoDate.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XMH9YH7T9;
 				ENABLE_PREVIEWS = YES;
@@ -516,6 +521,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxhfisher.DoDate;
 				PRODUCT_NAME = DoDate;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
