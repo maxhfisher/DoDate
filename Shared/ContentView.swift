@@ -12,7 +12,12 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 	
     var body: some View {
-        Text("Hello World")
+		TabView {
+			NavigationView {
+				Text("Hello World")
+					.navigationTitle("DoDate")
+			}
+		}
     }
 
 }
