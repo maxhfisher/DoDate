@@ -39,6 +39,7 @@ struct ContentView: View {
 						.accessibility(hint: Text("Dates when things are to be done"))
 				}
 		}
+		.accentColor(.pink)
     }
 
 }
