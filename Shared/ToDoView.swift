@@ -25,17 +25,26 @@ struct ToDoView: View {
 			}
 		}
     }
-}
-
-struct PlusButtonView: View {
-	var body: some View {
-		Button(action: {}) {
-			Image(systemName: "plus")
+	
+	struct PlusButtonView: View {
+		var body: some View {
+			Menu {
+				Button("Add Project") {
+					
+				}
+				Button("Add Due Date") {
+					
+				}.accessibility(hint: Text("Add a date when something is due"))
+				Button("Add Do Date") {
+					
+				}.accessibility(hint: Text("Add a date to do something"))
+			} label: { Image(systemName: "plus")
 				.font(.system(size: 50))
 				.foregroundColor(.white)
 				.padding()
 				.background(Color.pink)
 				.clipShape(Circle())
+			}
 		}
 	}
 }
