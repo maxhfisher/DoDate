@@ -22,7 +22,7 @@ struct ProjectsView: View {
 				.onDelete(perform: delete)
 			}
 			.navigationTitle("Projects")
-			.navigationBarItems(trailing: Button { showingAddProjectSheet = true } label: {
+			.navigationBarItems(leading: EditButton(), trailing: Button { showingAddProjectSheet = true } label: {
 				Image(systemName: "plus")
 			})
 			.sheet(isPresented: $showingAddProjectSheet, content: { NewProjectView() })
@@ -70,6 +70,7 @@ struct NewProjectView: View {
 									newProject.details = details
 									try context.save()
 									hapticGenerator.notificationOccurred(.success)
+									presentationMode.wrappedValue.dismiss()
 								} catch {
 									print(error.localizedDescription)
 									hapticGenerator.notificationOccurred(.error)
