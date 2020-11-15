@@ -27,8 +27,8 @@
 		8680063725607E22003E45DE /* DueDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063525607E22003E45DE /* DueDatesView.swift */; };
 		8680063D25607E57003E45DE /* DoDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063C25607E57003E45DE /* DoDatesView.swift */; };
 		8680063E25607E57003E45DE /* DoDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063C25607E57003E45DE /* DoDatesView.swift */; };
-		868006442560D7C9003E45DE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868006432560D7C9003E45DE /* Model.swift */; };
-		868006452560D7C9003E45DE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868006432560D7C9003E45DE /* Model.swift */; };
+		86C16CB92561CCF00096FA47 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C16CB82561CCF00096FA47 /* Model.swift */; };
+		86C16CBA2561CCF00096FA47 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C16CB82561CCF00096FA47 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,7 @@
 		8680062E25607DD4003E45DE /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		8680063525607E22003E45DE /* DueDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDatesView.swift; sourceTree = "<group>"; };
 		8680063C25607E57003E45DE /* DoDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoDatesView.swift; sourceTree = "<group>"; };
-		868006432560D7C9003E45DE /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		86C16CB82561CCF00096FA47 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				864D0996255F92AF00FAB092 /* DoDateApp.swift */,
-				868006432560D7C9003E45DE /* Model.swift */,
 				864D0997255F92AF00FAB092 /* ContentView.swift */,
+				86C16CB82561CCF00096FA47 /* Model.swift */,
 				8680063C25607E57003E45DE /* DoDatesView.swift */,
 				8680063525607E22003E45DE /* DueDatesView.swift */,
 				8680062E25607DD4003E45DE /* ProjectsView.swift */,
@@ -338,7 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				868006442560D7C9003E45DE /* Model.swift in Sources */,
+				86C16CB92561CCF00096FA47 /* Model.swift in Sources */,
 				8680062F25607DD4003E45DE /* ProjectsView.swift in Sources */,
 				8680063625607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C2255F92B000FAB092 /* DoDateApp.swift in Sources */,
@@ -354,7 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				868006452560D7C9003E45DE /* Model.swift in Sources */,
+				86C16CBA2561CCF00096FA47 /* Model.swift in Sources */,
 				8680063025607DD4003E45DE /* ProjectsView.swift in Sources */,
 				8680063725607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C3255F92B000FAB092 /* DoDateApp.swift in Sources */,

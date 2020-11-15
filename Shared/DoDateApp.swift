@@ -17,7 +17,6 @@ struct DoDateApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-				.environmentObject(model)
         }
     }
 }
