@@ -12,6 +12,9 @@ struct ProjectsView: View {
 		NavigationView {
 			Text("Projects")
 				.navigationTitle("Projects")
+				.navigationBarItems(trailing: Button {} label: {
+					Image(systemName: "plus")
+				})
 		}
     }
 }
