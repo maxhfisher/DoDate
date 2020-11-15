@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20B29" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Day" representedClassName="Day" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="day" inverseEntity="DoDate"/>
+        <relationship name="dueDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DueDate" inverseName="day" inverseEntity="DueDate"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="date"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="DoDate" representedClassName="DoDate" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="doDates" inverseEntity="Day"/>
         <relationship name="dueDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DueDate" inverseName="doDates" inverseEntity="DueDate"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="doDates" inverseEntity="Project"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="DueDate" representedClassName="DueDate" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="dueDates" inverseEntity="Day"/>
         <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="dueDate" inverseEntity="DoDate"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="dueDates" inverseEntity="Project" spotlightIndexingEnabled="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
         <attribute name="details" optional="YES" attributeType="String"/>
@@ -21,10 +43,16 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="doDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DoDate" inverseName="project" inverseEntity="DoDate"/>
         <relationship name="dueDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DueDate" inverseName="project" inverseEntity="DueDate"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="DoDate" positionX="-45" positionY="54" width="128" height="104"/>
-        <element name="DueDate" positionX="-54" positionY="18" width="128" height="119"/>
+        <element name="DoDate" positionX="-45" positionY="54" width="128" height="119"/>
+        <element name="DueDate" positionX="-54" positionY="18" width="128" height="134"/>
         <element name="Project" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Day" positionX="-54" positionY="63" width="128" height="74"/>
     </elements>
 </model>
