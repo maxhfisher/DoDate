@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ToDoView: View {
-
-	@State private var days: [Day] = []
+	@EnvironmentObject var model: Model
 
     var body: some View {
 		NavigationView {
