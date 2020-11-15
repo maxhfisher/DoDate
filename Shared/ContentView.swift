@@ -11,9 +11,6 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 	
-//	@FetchRequest(entity: DoDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DoDate.date, ascending: true)], predicate: NSPredicate(format: "date >= %@", Date() as CVarArg)) var doDates: FetchedResults<DoDate>
-//	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date >= %@", Date() as CVarArg)) var dueDates: FetchedResults<DueDate>
-//	
 	
     var body: some View {
 		TabView {
