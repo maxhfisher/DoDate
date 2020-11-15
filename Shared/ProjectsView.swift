@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct ProjectsView: View {
+	@EnvironmentObject var model: Model
+	
     var body: some View {
 		NavigationView {
-			Text("Projects")
-				.navigationTitle("Projects")
-				.navigationBarItems(trailing: Button {} label: {
-					Image(systemName: "plus")
-				})
+			List(model.projects, id: \.self) { project in
+				Text(project.entity.name ?? "")
+			}
+			.navigationTitle("Projects")
+			.navigationBarItems(trailing: Button {} label: {
+				Image(systemName: "plus")
+			})
 		}
     }
 }
 
 struct ProjectsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsView()
+		ProjectsView().environmentObject(Model())
     }
 }

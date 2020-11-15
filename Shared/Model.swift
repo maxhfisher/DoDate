@@ -46,6 +46,13 @@ class Model: ObservableObject {
 			days = []
 		}
 	}
+	init() {
+		context = PersistenceController.shared.container.viewContext
+		projects = []
+		dueDates = []
+		doDates = []
+		days = []
+	}
 	
 	func add(project name: String, details: String) throws {
 		let newProject = Project(context: context)
