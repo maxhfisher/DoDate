@@ -15,7 +15,7 @@ struct ProjectsView: View {
     var body: some View {
 		NavigationView {
 			List(projects, id: \.self) { project in
-				Text(project.entity.name ?? "")
+				Text(project.name ?? "")
 			}
 			.navigationTitle("Projects")
 			.navigationBarItems(trailing: Button { showingAddProjectSheet = true } label: {
@@ -54,11 +54,9 @@ struct NewProjectView: View {
 									let newProject = Project(context: context)
 									newProject.name = title
 									newProject.details = details
-									
-									
-									
 									try context.save()
 								} catch {
+									print(error.localizedDescription)
 									showingErrorAlert = true
 								}
 							}

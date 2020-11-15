@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ToDoView: View {
-	@EnvironmentObject var model: Model
 
     var body: some View {
 		NavigationView {
