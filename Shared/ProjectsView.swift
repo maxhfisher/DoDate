@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ProjectsView: View {
+	@Environment(\.managedObjectContext) var context
 	@FetchRequest(entity: Project.entity(), sortDescriptors: []) var projects: FetchedResults<Project>
 	
 	@State private var showingAddProjectSheet = false
 	
     var body: some View {
 		NavigationView {
-			List(projects, id: \.self) { project in
-				Text(project.name ?? "")
+			List {
+				ForEach(projects,id: \.self) { project in
+					Text(project.name ?? "")
+				}
+				.onDelete(perform: delete)
 			}
 			.navigationTitle("Projects")
 			.navigationBarItems(trailing: Button { showingAddProjectSheet = true } label: {
@@ -24,6 +28,13 @@ struct ProjectsView: View {
 			.sheet(isPresented: $showingAddProjectSheet, content: { NewProjectView() })
 		}
     }
+	
+	func delete(atOffsets offsets: IndexSet) {
+		for index in offsets {
+			context.delete(projects[index])
+		}
+		try? context.save()
+	}
 }
 
 struct NewProjectView: View {
