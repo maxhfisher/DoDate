@@ -12,6 +12,7 @@ class Model: ObservableObject {
 	@Published var projects: [Project]
 	@Published var dueDates: [DueDate]
 	@Published var doDates: [DoDate]
+	@Published var days: [Day]
 	
 	init() {
 		do {
@@ -32,6 +33,13 @@ class Model: ObservableObject {
 			try doDates = doDatesFetchRequest.execute()
 		} catch {
 			doDates = []
+		}
+		do {
+			let daysFetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
+			daysFetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: true)]
+			try days = daysFetchRequest.execute()
+		} catch {
+			days = []
 		}
 	}
 }
