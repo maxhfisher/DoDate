@@ -12,6 +12,9 @@ struct DoDatesView: View {
 		NavigationView {
 			Text("Do Dates")
 				.navigationTitle("Do Dates")
+				.navigationBarItems(trailing: Button {} label: {
+					Image(systemName: "plus")
+				})
 		}
     }
 }
