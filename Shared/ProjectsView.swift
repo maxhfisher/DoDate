@@ -47,16 +47,21 @@ struct NewProjectView: View {
 					HStack {
 						Spacer()
 						Button("Save") {
+							let hapticGenerator = UINotificationFeedbackGenerator()
+							hapticGenerator.prepare()
+							
 							if title.isEmpty || details.isEmpty {
-								//TODO
+								hapticGenerator.notificationOccurred(.error)
 							} else {
 								do {
 									let newProject = Project(context: context)
 									newProject.name = title
 									newProject.details = details
 									try context.save()
+									hapticGenerator.notificationOccurred(.success)
 								} catch {
 									print(error.localizedDescription)
+									hapticGenerator.notificationOccurred(.error)
 									showingErrorAlert = true
 								}
 							}
