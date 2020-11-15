@@ -11,12 +11,12 @@ import SwiftUI
 struct DoDateApp: App {
     let persistenceController = PersistenceController.shared
 	
-	let model = Model()
 	
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+				.environmentObject(Model(context: persistenceController.container.viewContext))
         }
     }
 }
