@@ -49,7 +49,7 @@ struct NewProjectView: View {
 	@Environment(\.managedObjectContext) var context
 	@Environment(\.presentationMode) var presentationMode
 	
-	@State private var title = ""
+	@State private var name = ""
 	@State private var details = ""
 	
 	@State private var showingErrorAlert = false
@@ -58,7 +58,7 @@ struct NewProjectView: View {
 		NavigationView {
 			Form {
 				Section {
-					TextField("Name", text: $title)
+					TextField("Name", text: $name)
 					TextField("Details", text: $details)
 				}
 				
@@ -69,12 +69,12 @@ struct NewProjectView: View {
 							let hapticGenerator = UINotificationFeedbackGenerator()
 							hapticGenerator.prepare()
 							
-							if title.isEmpty || details.isEmpty {
+							if name.isEmpty || details.isEmpty {
 								hapticGenerator.notificationOccurred(.error)
 							} else {
 								do {
 									let newProject = Project(context: context)
-									newProject.name = title
+									newProject.name = name
 									newProject.details = details
 									try context.save()
 									hapticGenerator.notificationOccurred(.success)
