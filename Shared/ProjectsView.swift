@@ -76,6 +76,7 @@ struct NewProjectView: View {
 									let newProject = Project(context: context)
 									newProject.name = name
 									newProject.details = details
+									newProject.id = UUID()
 									try context.save()
 									hapticGenerator.notificationOccurred(.success)
 									presentationMode.wrappedValue.dismiss()
