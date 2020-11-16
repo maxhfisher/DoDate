@@ -14,12 +14,20 @@ struct ProjectsView: View {
 	@State private var showingAddProjectSheet = false
 	
     var body: some View {
-		NavigationView {
-			List {
-				ForEach(projects,id: \.self) { project in
-					Text(project.name ?? "")
+		NavigationView  {
+			Group {
+				if projects.isEmpty {
+					Text("No Projects Yet")
+						.font(.largeTitle)
+						.foregroundColor(.secondary)
+				} else {
+					List {
+						ForEach(projects,id: \.self) { project in
+							Text(project.name ?? "")
+						}
+						.onDelete(perform: delete)
+					}
 				}
-				.onDelete(perform: delete)
 			}
 			.navigationTitle("Projects")
 			.navigationBarItems(leading: EditButton(), trailing: Button { showingAddProjectSheet = true } label: {
