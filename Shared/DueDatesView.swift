@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DueDatesView: View {
+	@Environment(\.managedObjectContext) var context
+	
 	@FetchRequest(entity: DueDate.entity(), sortDescriptors: []) var dueDates: FetchedResults<DueDate>
 	
 	@State private var showingAddDueDateView = false
@@ -24,6 +26,7 @@ struct DueDatesView: View {
 						ForEach(dueDates, id: \.self) { dueDate in
 							Text(dueDate.name ?? "")
 						}
+						.onDelete(perform: delete)
 					}
 				}
 			}
@@ -34,6 +37,13 @@ struct DueDatesView: View {
 			.sheet(isPresented: $showingAddDueDateView, content: { NewDueDateView() })
 		}
     }
+	
+	func delete(atOffsets offsets: IndexSet) {
+		for inxex in offsets {
+			context.delete(dueDates[inxex])
+		}
+		try? context.save()
+	}
 }
 
 struct NewDueDateView: View {
