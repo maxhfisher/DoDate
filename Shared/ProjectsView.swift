@@ -33,7 +33,7 @@ struct ProjectsView: View {
 			.navigationBarItems(leading: EditButton(), trailing: Button { showingAddProjectSheet = true } label: {
 				Image(systemName: "plus")
 			})
-			.sheet(isPresented: $showingAddProjectSheet, content: { NewProjectView() })
+			.sheet(isPresented: $showingAddProjectSheet, content: { NewProjectView().environment(\.managedObjectContext, context) })
 		}
     }
 	

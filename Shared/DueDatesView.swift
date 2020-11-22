@@ -74,7 +74,7 @@ struct NewDueDateView: View {
 							Button("New Project") {
 								showingNewProjectView = true
 							}
-							.sheet(isPresented: $showingNewProjectView, content : { NewProjectView() })
+							.sheet(isPresented: $showingNewProjectView, content : { NewProjectView().environment(\.managedObjectContext, context) })
 						}
 					}
 				}

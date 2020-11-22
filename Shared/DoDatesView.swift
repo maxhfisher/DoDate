@@ -33,7 +33,7 @@ struct DoDatesView: View {
 			.navigationBarItems(leading: EditButton(), trailing: Button { showingNewDoDateView = true } label: {
 				Image(systemName: "plus")
 			})
-			.sheet(isPresented: $showingNewDoDateView, content: { NewDoDatesView() })
+			.sheet(isPresented: $showingNewDoDateView, content: { NewDoDatesView().environment(\.managedObjectContext, context) })
 		}
     }
 }
