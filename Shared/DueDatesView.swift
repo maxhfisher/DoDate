@@ -58,18 +58,23 @@ struct NewDueDateView: View {
 	@State private var date = Date(timeIntervalSinceNow: 86400)
 	
 	@State private var showingErrorAlert = false
+	@State private var showingNewProjectView = false
 	
 	var body: some View {
 		NavigationView {
 			Form {
 				Section {
 					Picker("Project", selection: $projectSelection) {
-						if projects.isEmpty {
-							Text("No Projects Yet")
-						} else {
+						Section {
 							ForEach(0..<projects.count) {
 								Text(projects[$0].name ?? "")
 							}
+						}
+						Section {
+							Button("New Project") {
+								showingNewProjectView = true
+							}
+							.sheet(isPresented: $showingNewProjectView, content : { NewProjectView() })
 						}
 					}
 				}
