@@ -50,9 +50,7 @@ struct NewDueDateView: View {
 	@Environment(\.managedObjectContext) var context
 	@Environment(\.presentationMode) var presentationMode
 	
-	@FetchRequest(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.name, ascending: true)]) var projects: FetchedResults<Project>
-	
-	@State private var projectSelection = 0
+	@State private var projectSelection: Project?
 	@State private var name = ""
 	@State private var details = ""
 	@State private var date = Date(timeIntervalSinceNow: 86400)
@@ -64,19 +62,7 @@ struct NewDueDateView: View {
 		NavigationView {
 			Form {
 				Section {
-					Picker("Project", selection: $projectSelection) {
-						Section {
-							ForEach(0..<projects.count) {
-								Text(projects[$0].name ?? "")
-							}
-						}
-						Section {
-							Button("New Project") {
-								showingNewProjectView = true
-							}
-							.sheet(isPresented: $showingNewProjectView, content : { NewProjectView().environment(\.managedObjectContext, context) })
-						}
-					}
+					ProjectSelectionView(selection: $projectSelection)
 				}
 				
 				Section {
@@ -96,12 +82,12 @@ struct NewDueDateView: View {
 							let hapticGenerator = UINotificationFeedbackGenerator()
 							hapticGenerator.prepare()
 							
-							if projects.isEmpty || name.isEmpty || details.isEmpty {
+							if projectSelection == nil || name.isEmpty || details.isEmpty {
 								hapticGenerator.notificationOccurred(.error)
 							} else {
 								do {
 									let newDueDate = DueDate(context: context)
-									newDueDate.project = projects[projectSelection]
+									newDueDate.project = projectSelection
 									newDueDate.name = name
 									newDueDate.details = details
 									newDueDate.id = UUID()
