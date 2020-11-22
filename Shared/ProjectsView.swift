@@ -107,7 +107,7 @@ struct ProjectSelectionView: View {
 	var body: some View {
 		NavigationLink(destination: ProjectListView(selection: $selection)) {
 				HStack {
-					Text("Projects")
+					Text("Project")
 					Spacer()
 					if selection != nil  {
 						Text(selection?.name ?? "")
