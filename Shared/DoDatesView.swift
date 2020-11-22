@@ -41,16 +41,14 @@ struct DoDatesView: View {
 struct NewDoDatesView: View {
 	@Environment(\.managedObjectContext) var context
 	
-	@FetchRequest(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.name, ascending: true)]) var projects: FetchedResults<Project>
-	
-	@State private var projectSelection = 0
-	@State private var dueDateSelection = 0
+	@State private var projectSelection: Project?
+	@State private var dueDateSelection: DueDate?
 	
 	var body: some View {
 		NavigationView {
 			Form {
 				Section {
-					ProjectSelectionView(projects: Array(projects), selectionIndex: $projectSelection)
+					ProjectSelectionView(selection: $projectSelection)
 				}
 			}
 			.navigationBarTitleDisplayMode(.inline)

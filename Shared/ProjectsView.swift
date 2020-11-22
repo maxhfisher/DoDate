@@ -102,32 +102,50 @@ struct NewProjectView: View {
 }
 
 struct ProjectSelectionView: View {
-	@Environment(\.managedObjectContext) var context
-	
-	let projects: [Project]
-	@Binding var selectionIndex: Int
-	
-	@State private var showingAddProjectView = false
+	@Binding var selection: Project?
 	
 	var body: some View {
-		NavigationLink( destination:
+		NavigationLink(destination: ProjectListView(selection: $selection)) {
+				HStack {
+					Text("Projects")
+					Spacer()
+					if selection != nil  {
+						Text(selection?.name ?? "")
+							.foregroundColor(.secondary)
+					}
+				}
+			}
+	}
+	
+	private struct ProjectListView: View {
+		@Environment(\.managedObjectContext) var context
+		@Environment(\.presentationMode) var presentationMode
+		
+		@FetchRequest(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.name, ascending: true)]) var projects: FetchedResults<Project>
+		
+		@Binding var selection: Project?
+		@State private var showingAddProjectView = false
+		var body: some View {
 			Form {
 				Section {
-					ForEach(0..<projects.count) { i in
-						HStack {
-							Text(projects[i].name ?? "")
-							Spacer()
-							if selectionIndex == i {
-								Image(systemName: "checkmark")
-									.foregroundColor(selectionIndex == i ? .accentColor:.primary)
+					ForEach(projects, id: \.self) { project in
+						Button {
+							selection = project
+							presentationMode.wrappedValue.dismiss()
+						} label: {
+							HStack {
+								Text(project.name ?? "")
+								Spacer()
+								if selection == project {
+									Image(systemName: "checkmark")
+										.foregroundColor(selection == project ? .accentColor:.primary)
+								}
 							}
 						}
-						.onTapGesture {
-							selectionIndex = i
-						}
+						.foregroundColor(.primary)
 						.accessibilityElement(children: .ignore)
-						.accessibility(label: Text(projects[i].name ?? ""))
-						.accessibility(addTraits: selectionIndex == i ? [.isButton, .isSelected]:[.isButton])
+						.accessibility(label: Text(project.name ?? ""))
+						.accessibility(addTraits: selection == project ? [.isButton, .isSelected]:[.isButton])
 					}
 				}
 				Section {
@@ -138,16 +156,7 @@ struct ProjectSelectionView: View {
 			}
 			.navigationTitle("Select a Project")
 			.sheet(isPresented: $showingAddProjectView, content: { NewProjectView().environment(\.managedObjectContext, context) })
-			) {
-				HStack {
-					Text("Projects")
-					Spacer()
-					if !projects.isEmpty {
-						Text(projects[selectionIndex].name ?? "")
-							.foregroundColor(.secondary)
-					}
-				}
-			}
+		}
 	}
 }
 
