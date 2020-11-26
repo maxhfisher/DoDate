@@ -151,7 +151,9 @@ struct NewDueDateView: View {
 						ForEach(dueDates, id: \.self) { dueDate in
 							if true {
 								Button {
-									selection = dueDate
+									withAnimation {
+										selection = dueDate
+									}
 									presentationMode.wrappedValue.dismiss()
 								} label: {
 									HStack {
