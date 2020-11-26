@@ -130,7 +130,9 @@ struct ProjectSelectionView: View {
 				Section {
 					ForEach(projects, id: \.self) { project in
 						Button {
-							selection = project
+							withAnimation {
+								selection = project
+							}
 							presentationMode.wrappedValue.dismiss()
 						} label: {
 							HStack {
@@ -138,14 +140,14 @@ struct ProjectSelectionView: View {
 								Spacer()
 								if selection == project {
 									Image(systemName: "checkmark")
-										.foregroundColor(selection == project ? .accentColor:.primary)
+										.foregroundColor(.accentColor)
 								}
 							}
 						}
 						.foregroundColor(.primary)
 						.accessibilityElement(children: .ignore)
 						.accessibility(label: Text(project.name ?? ""))
-						.accessibility(addTraits: selection == project ? [.isButton, .isSelected]:[.isButton])
+						.accessibility(addTraits: selection == project ? [.isSelected]:[])
 					}
 				}
 				Section {

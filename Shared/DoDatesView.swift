@@ -49,6 +49,9 @@ struct NewDoDatesView: View {
 			Form {
 				Section {
 					ProjectSelectionView(selection: $projectSelection)
+					if projectSelection != nil {
+						DueDateSelectionView(selection: $dueDateSelection, project: projectSelection!)
+					}
 				}
 			}
 			.navigationBarTitleDisplayMode(.inline)
