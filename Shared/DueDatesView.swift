@@ -140,7 +140,7 @@ struct NewDueDateView: View {
 			@Environment(\.presentationMode) var presentationMode
 			
 			let project: Project
-			@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", NSDate())) var dueDates: FetchedResults<DueDate>
+			@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", NSDate(timeIntervalSinceNow: -8640))) var dueDates: FetchedResults<DueDate>
 			
 			@Binding var selection: DueDate?
 			@State private var showingAddDueDateView = false
