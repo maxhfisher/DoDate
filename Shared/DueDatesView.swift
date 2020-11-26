@@ -10,7 +10,7 @@ import SwiftUI
 struct DueDatesView: View {
 	@Environment(\.managedObjectContext) var context
 	
-	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date < %@", NSDate())) var dueDates: FetchedResults<DueDate>
+	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)]) var dueDates: FetchedResults<DueDate>
 	
 	@State private var showingAddDueDateView = false
 	
@@ -140,7 +140,7 @@ struct NewDueDateView: View {
 			@Environment(\.presentationMode) var presentationMode
 			
 			let project: Project
-			@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date < %@", NSDate())) var dueDates: FetchedResults<DueDate>
+			@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", NSDate())) var dueDates: FetchedResults<DueDate>
 			
 			@Binding var selection: DueDate?
 			@State private var showingAddDueDateView = false
@@ -149,7 +149,7 @@ struct NewDueDateView: View {
 				Form {
 					Section {
 						ForEach(dueDates, id: \.self) { dueDate in
-							if true {
+							if dueDate.project?.id == project.id {
 								Button {
 									withAnimation {
 										selection = dueDate
