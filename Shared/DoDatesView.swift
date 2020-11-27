@@ -43,6 +43,7 @@ struct DoDatesView: View {
 		for i in offsets {
 			context.delete(doDates[i])
 		}
+		try? context.save()
 	}
 }
 
@@ -53,7 +54,7 @@ struct NewDoDateView: View {
 	@State private var projectSelection: Project?
 	@State private var dueDateSelection: DueDate?
 	@State private var task = ""
-	@State private var date = Date()
+	@State private var date = Calendar.current.startOfDay(for: Date(timeIntervalSinceNow: 86400)).addingTimeInterval(-1)
 	@State private var notify = false
 	
 	var body: some View {
@@ -84,7 +85,7 @@ struct NewDoDateView: View {
 						Button {
 							let hapticGenerator = UINotificationFeedbackGenerator()
 							hapticGenerator.prepare()
-							
+
 							if projectSelection == nil || dueDateSelection == nil || task.isEmpty {
 								hapticGenerator.notificationOccurred(.error)
 							} else {
@@ -96,21 +97,26 @@ struct NewDoDateView: View {
 									newDoDate.date = date
 									newDoDate.notify = notify
 									newDoDate.id = UUID()
-									
+
 									if notify {
-										addNotificationFor(newDoDate) { success, error in
-											if success {
-												hapticGenerator.notificationOccurred(.success)
-												presentationMode.wrappedValue.dismiss()
-											} else {
-												hapticGenerator.notificationOccurred(.error)
-												print(error!.localizedDescription)
+										if Date(timeIntervalSinceNow: 0) <= date {
+											addNotificationFor(newDoDate) { success, error in
+												if !success {
+													hapticGenerator.notificationOccurred(.error)
+													print(error!.localizedDescription)
+													return
+												}
 											}
+											try context.save()
+											hapticGenerator.notificationOccurred(.success)
+											presentationMode.wrappedValue.dismiss()
+										} else {
+											hapticGenerator.notificationOccurred(.warning)
+											date = Date(timeIntervalSinceNow: 300)
 										}
 									} else {
 										try context.save()
 										hapticGenerator.notificationOccurred(.success)
-										presentationMode.wrappedValue.dismiss()
 										presentationMode.wrappedValue.dismiss()
 									}
 								} catch {
@@ -144,6 +150,7 @@ struct NewDoDateView: View {
 			notificationContent.title = "To Do"
 			notificationContent.subtitle = doDate.task!
 			notificationContent.sound = UNNotificationSound.default
+			notificationContent.badge = 1
 			
 			UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: doDate.id?.uuidString ?? "", content: notificationContent, trigger: UNTimeIntervalNotificationTrigger(timeInterval: doDate.date!.timeIntervalSince(Date()), repeats: false)))
 		}
