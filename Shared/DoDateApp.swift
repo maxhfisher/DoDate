@@ -15,6 +15,9 @@ struct DoDateApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+				.onAppear {
+					UIApplication.shared.applicationIconBadgeNumber = 0
+				}
         }
     }
 }
