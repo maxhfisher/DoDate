@@ -39,8 +39,12 @@ struct DueDatesView: View {
     }
 	
 	func delete(atOffsets offsets: IndexSet) {
-		for index in offsets {
-			context.delete(dueDates[index])
+		for i in offsets {
+			let dueDate = dueDates[i]
+			for case let doDate as DoDate in dueDate.doDates! {
+				context.delete(doDate)
+			}
+			context.delete(dueDate)
 		}
 		try? context.save()
 	}
