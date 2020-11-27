@@ -77,7 +77,7 @@ struct NewDoDateView: View {
 						TextField("Task", text: $task)
 					}
 					Section(footer: Text("Send a notification to remind you of your Do Date")) {
-						DatePicker("Date", selection: $date, in: Date(timeIntervalSinceNow: 60)...Calendar.current.startOfDay(for: date.addingTimeInterval(86400)).addingTimeInterval(-1), displayedComponents: notify ? [.date, .hourAndMinute]:.date)
+						DatePicker("Date", selection: $date, in: Date(timeIntervalSinceNow: 60)...Calendar.current.startOfDay(for: dueDateSelection!.date!.addingTimeInterval(86400)).addingTimeInterval(-1), displayedComponents: notify ? [.date, .hourAndMinute]:.date)
 							.datePickerStyle(GraphicalDatePickerStyle())
 						Toggle("Alert", isOn: $notify.animation())
 					}
