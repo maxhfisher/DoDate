@@ -27,6 +27,7 @@ struct DoDatesView: View {
 						ForEach(doDates, id: \.id) { doDate in
 							Text(doDate.task ?? "")
 						}
+						.onDelete(perform: delete)
 					}
 				}
 			}
@@ -37,6 +38,12 @@ struct DoDatesView: View {
 			.sheet(isPresented: $showingNewDoDateView, content: { NewDoDateView().environment(\.managedObjectContext, context) })
 		}
     }
+	
+	func delete(atOffsets offsets: IndexSet) {
+		for i in offsets {
+			context.delete(doDates[i])
+		}
+	}
 }
 
 struct NewDoDateView: View {
