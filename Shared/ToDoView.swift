@@ -10,6 +10,7 @@ import SwiftUI
 struct ToDoView: View {
 	@State private var showingNewProjectsView = false
 	@State private var showingNewDueDateView = false
+	@State private var showingNewDoDateView = false
 	
     var body: some View {
 		NavigationView {
@@ -21,7 +22,7 @@ struct ToDoView: View {
 					Spacer()
 					HStack {
 						Spacer()
-						PlusButtonView(showingNewProjectsView: $showingNewProjectsView, showingNewDueDateView: $showingNewDueDateView)
+						PlusButtonView(showingNewProjectsView: $showingNewProjectsView, showingNewDueDateView: $showingNewDueDateView, showingNewDoDateView: $showingNewDoDateView)
 							.padding()
 					}
 				}
@@ -29,19 +30,19 @@ struct ToDoView: View {
 		}
 		.sheet(isPresented: $showingNewProjectsView, content: { NewProjectView() })
 		.sheet(isPresented: $showingNewDueDateView, content: { NewDueDateView() })
+		.sheet(isPresented: $showingNewDoDateView, content: { NewDoDateView() })
     }
 	
 	struct PlusButtonView: View {
 		@Binding var showingNewProjectsView: Bool
 		@Binding var showingNewDueDateView: Bool
+		@Binding var showingNewDoDateView: Bool
 		
 		var body: some View {
 			Menu {
 				Button("Add Project") { showingNewProjectsView = true }
 				Button("Add Due Date") { showingNewDueDateView = true }.accessibility(hint: Text("Add a date when something is due"))
-				Button("Add Do Date") {
-
-				}.accessibility(hint: Text("Add a date to do something"))
+				Button("Add Do Date") { showingNewDoDateView = true }.accessibility(hint: Text("Add a date to do something"))
 			} label: { Image(systemName: "plus")
 				.font(.system(size: 50))
 				.foregroundColor(.white)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct DoDatesView: View {
 	@Environment(\.managedObjectContext) var context
@@ -24,7 +25,7 @@ struct DoDatesView: View {
 				} else {
 					List {
 						ForEach(doDates, id: \.id) { doDate in
-							Text(doDate.details ?? "")
+							Text(doDate.task ?? "")
 						}
 					}
 				}
@@ -33,37 +34,126 @@ struct DoDatesView: View {
 			.navigationBarItems(leading: EditButton(), trailing: Button { showingNewDoDateView = true } label: {
 				Image(systemName: "plus")
 			})
-			.sheet(isPresented: $showingNewDoDateView, content: { NewDoDatesView().environment(\.managedObjectContext, context) })
+			.sheet(isPresented: $showingNewDoDateView, content: { NewDoDateView().environment(\.managedObjectContext, context) })
 		}
     }
 }
 
-struct NewDoDatesView: View {
+struct NewDoDateView: View {
 	@Environment(\.managedObjectContext) var context
+	@Environment(\.presentationMode) var presentationMode
 	
 	@State private var projectSelection: Project?
 	@State private var dueDateSelection: DueDate?
+	@State private var task = ""
+	@State private var date = Date()
+	@State private var notify = false
 	
 	var body: some View {
 		NavigationView {
 			Form {
 				Section {
-					ProjectSelectionView(selection: $projectSelection)
+					ProjectSelectionView(selection: Binding(get: { self.projectSelection }, set: { newValue in
+						if newValue?.id != projectSelection?.id {
+							dueDateSelection = nil
+						}
+						self.projectSelection = newValue
+					}))
 					if projectSelection != nil {
 						DueDateSelectionView(selection: $dueDateSelection, project: projectSelection!)
+					}
+				}
+				
+				if dueDateSelection != nil {
+					Section {
+						TextField("Task", text: $task)
+					}
+					Section(footer: Text("Send a notification to remind you of your Do Date")) {
+						DatePicker("Date", selection: $date, in: Date(timeIntervalSinceNow: 60)...Calendar.current.startOfDay(for: date.addingTimeInterval(86400)).addingTimeInterval(-1), displayedComponents: notify ? [.date, .hourAndMinute]:.date)
+							.datePickerStyle(GraphicalDatePickerStyle())
+						Toggle("Alert", isOn: $notify.animation())
+					}
+					Section {
+						Button {
+							let hapticGenerator = UINotificationFeedbackGenerator()
+							hapticGenerator.prepare()
+							
+							if projectSelection == nil || dueDateSelection == nil || task.isEmpty {
+								hapticGenerator.notificationOccurred(.error)
+							} else {
+								do {
+									let newDoDate = DoDate(context: context)
+									newDoDate.project = projectSelection!
+									newDoDate.dueDate = dueDateSelection!
+									newDoDate.task = task
+									newDoDate.date = date
+									newDoDate.notify = notify
+									newDoDate.id = UUID()
+									
+									if notify {
+										addNotificationFor(newDoDate) { success, error in
+											if success {
+												hapticGenerator.notificationOccurred(.success)
+												presentationMode.wrappedValue.dismiss()
+											} else {
+												hapticGenerator.notificationOccurred(.error)
+												print(error!.localizedDescription)
+											}
+										}
+									} else {
+										try context.save()
+										hapticGenerator.notificationOccurred(.success)
+										presentationMode.wrappedValue.dismiss()
+										presentationMode.wrappedValue.dismiss()
+									}
+								} catch {
+									print(error.localizedDescription)
+									hapticGenerator.notificationOccurred(.error)
+								}
+							}
+						} label: {
+							HStack {
+								Spacer()
+								Text("Save")
+								Spacer()
+							}
+						}
 					}
 				}
 			}
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle("New Do Date")
+			.navigationBarItems(trailing: Button("Cancel") { presentationMode.wrappedValue.dismiss() })
 		}
 	}
 	
-	func formatDate(_ date: Date) -> String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
+	func addNotificationFor(_ doDate: DoDate, completion: @escaping (Bool, Error?) -> Void) {
+		enum AddNotificationError: LocalizedError {
+			case failedToGetAuthorization
+		}
 		
-		return dateFormatter.string(from: date)
+		let addRequest = {
+			let notificationContent = UNMutableNotificationContent()
+			notificationContent.title = "To Do"
+			notificationContent.subtitle = doDate.task!
+			notificationContent.sound = UNNotificationSound.default
+			
+			UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: doDate.id?.uuidString ?? "", content: notificationContent, trigger: UNTimeIntervalNotificationTrigger(timeInterval: doDate.date!.timeIntervalSince(Date()), repeats: false)))
+		}
+		
+		let notificationCenter = UNUserNotificationCenter.current()
+		notificationCenter.getNotificationSettings { settings in
+			if settings.authorizationStatus == .authorized {
+				addRequest()
+			} else {
+				notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+					if success {
+						addRequest()
+					}
+					completion(success, error)
+				}
+			}
+		}
 	}
 }
 
