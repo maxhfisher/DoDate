@@ -12,11 +12,52 @@ struct ToDoView: View {
 	@State private var showingNewDueDateView = false
 	@State private var showingNewDoDateView = false
 	
+	@FetchRequest(entity: DoDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) var doDates: FetchedResults<DoDate>
+	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) var dueDates: FetchedResults<DueDate>
+	private var days: [Day] {
+		var days = [Day]()
+		
+		var dateOfLastDay = Date(timeIntervalSinceNow: -86400)
+		if let dueDate = dueDates.last {
+			dateOfLastDay = dueDate.date!
+		}
+		if let doDate = doDates.last {
+			dateOfLastDay = doDate.date! > dateOfLastDay ? doDate.date!:dateOfLastDay
+		}
+		
+		var date = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+		while Calendar.current.date(from: date)! < dateOfLastDay {
+			days.append(Day(date: date, doDates: [], dueDates: []))
+			date.day! += 1
+		}
+		for doDate in doDates {
+			let dateComponents = Calendar.current.dateComponents([.day, .month, .year], from: doDate.date!)
+			if let index = days.firstIndex(where: { dateComponents == $0.date }) {
+				days[index].doDates.append(doDate)
+			}
+		}
+		for dueDate in dueDates {
+			let dateComponents = Calendar.current.dateComponents([.day, .month, .year], from: dueDate.date!)
+			if let index = days.firstIndex(where: { dateComponents == $0.date }) {
+				days[index].dueDates.append(dueDate)
+			}
+		}
+		
+		return days
+	}
+	
     var body: some View {
 		NavigationView {
 			ZStack {
-				Text("To Do")
-					.navigationTitle("DoDate")
+				if days.isEmpty {
+					Text("Nothing To Do")
+						.font(.largeTitle)
+						.foregroundColor(.secondary)
+				} else {
+					List(days, id: \.self) { day in
+						Text("\(Calendar.current.date(from: day.date)!)")
+					}
+				}
 				
 				VStack {
 					Spacer()
@@ -27,6 +68,7 @@ struct ToDoView: View {
 					}
 				}
 			}
+			.navigationTitle("DoDate")
 		}
 		.sheet(isPresented: $showingNewProjectsView, content: { NewProjectView() })
 		.sheet(isPresented: $showingNewDueDateView, content: { NewDueDateView() })
@@ -51,6 +93,13 @@ struct ToDoView: View {
 				.clipShape(Circle())
 			}
 		}
+	}
+	
+	private struct Day: Hashable {
+		let date: DateComponents
+		
+		var doDates: [DoDate]
+		var dueDates: [DueDate]
 	}
 }
 
