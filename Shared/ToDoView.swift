@@ -12,8 +12,8 @@ struct ToDoView: View {
 	@State private var showingNewDueDateView = false
 	@State private var showingNewDoDateView = false
 	
-	@FetchRequest(entity: DoDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) var doDates: FetchedResults<DoDate>
-	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) var dueDates: FetchedResults<DueDate>
+	@FetchRequest(entity: DoDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) private var doDates: FetchedResults<DoDate>
+	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) private var dueDates: FetchedResults<DueDate>
 	private var days: [Day] {
 		var days = [Day]()
 		
@@ -54,9 +54,18 @@ struct ToDoView: View {
 						.font(.largeTitle)
 						.foregroundColor(.secondary)
 				} else {
-					List(days, id: \.self) { day in
-						Text("\(Calendar.current.date(from: day.date)!)")
+					LazyVStack(spacing: 10) {
+						ForEach(days, id: \.self) { day in
+							DayView(day: day)
+						}
+						.padding()
+						.frame(maxWidth: .infinity)
+						.background(Color(UIColor.secondarySystemBackground))
+						.cornerRadius(10)
+						
+						Spacer()
 					}
+					.padding([.leading, .trailing])
 				}
 				
 				VStack {
@@ -93,13 +102,6 @@ struct ToDoView: View {
 				.clipShape(Circle())
 			}
 		}
-	}
-	
-	private struct Day: Hashable {
-		let date: DateComponents
-		
-		var doDates: [DoDate]
-		var dueDates: [DueDate]
 	}
 }
 

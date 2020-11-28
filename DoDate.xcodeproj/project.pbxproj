@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8600EF722571ED4F0001AB23 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8600EF712571ED4F0001AB23 /* DayView.swift */; };
+		8600EF732571ED4F0001AB23 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8600EF712571ED4F0001AB23 /* DayView.swift */; };
 		864D09B3255F92B000FAB092 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D09B2255F92B000FAB092 /* Tests_iOS.swift */; };
 		864D09BE255F92B000FAB092 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D09BD255F92B000FAB092 /* Tests_macOS.swift */; };
 		864D09C0255F92B000FAB092 /* DoDate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 864D0994255F92AF00FAB092 /* DoDate.xcdatamodeld */; };
@@ -47,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8600EF712571ED4F0001AB23 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		864D0995255F92AF00FAB092 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		864D0996255F92AF00FAB092 /* DoDateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoDateApp.swift; sourceTree = "<group>"; };
 		864D0997255F92AF00FAB092 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 				8680063525607E22003E45DE /* DueDatesView.swift */,
 				8680062E25607DD4003E45DE /* ProjectsView.swift */,
 				8680062725607DA8003E45DE /* ToDoView.swift */,
+				8600EF712571ED4F0001AB23 /* DayView.swift */,
 				864D0998255F92AF00FAB092 /* Persistence.swift */,
 				864D0999255F92B000FAB092 /* Assets.xcassets */,
 				864D0994255F92AF00FAB092 /* DoDate.xcdatamodeld */,
@@ -338,6 +342,7 @@
 				8680063625607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C2255F92B000FAB092 /* DoDateApp.swift in Sources */,
 				8680063D25607E57003E45DE /* DoDatesView.swift in Sources */,
+				8600EF722571ED4F0001AB23 /* DayView.swift in Sources */,
 				864D09C6255F92B000FAB092 /* Persistence.swift in Sources */,
 				864D09C0255F92B000FAB092 /* DoDate.xcdatamodeld in Sources */,
 				864D09C4255F92B000FAB092 /* ContentView.swift in Sources */,
@@ -353,6 +358,7 @@
 				8680063725607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C3255F92B000FAB092 /* DoDateApp.swift in Sources */,
 				8680063E25607E57003E45DE /* DoDatesView.swift in Sources */,
+				8600EF732571ED4F0001AB23 /* DayView.swift in Sources */,
 				864D09C7255F92B000FAB092 /* Persistence.swift in Sources */,
 				864D09C1255F92B000FAB092 /* DoDate.xcdatamodeld in Sources */,
 				864D09C5255F92B000FAB092 /* ContentView.swift in Sources */,
