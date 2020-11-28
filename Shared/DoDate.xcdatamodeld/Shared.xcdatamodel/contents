@@ -27,6 +27,7 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -41,6 +42,6 @@
     <elements>
         <element name="DoDate" positionX="-45" positionY="54" width="128" height="119"/>
         <element name="DueDate" positionX="-54" positionY="18" width="128" height="119"/>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="119"/>
     </elements>
 </model>
