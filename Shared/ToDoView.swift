@@ -54,18 +54,19 @@ struct ToDoView: View {
 						.font(.largeTitle)
 						.foregroundColor(.secondary)
 				} else {
-					LazyVStack(spacing: 10) {
-						ForEach(days, id: \.self) { day in
-							DayView(day: day)
+					ScrollView {
+						LazyVStack(spacing: 10) {
+							ForEach(days, id: \.self) { day in
+								DayView(day: day)
+							}
+							.padding()
+							.frame(maxWidth: .infinity)
+							.background(Color(UIColor.secondarySystemBackground))
+							.cornerRadius(10)
 						}
-						.padding()
-						.frame(maxWidth: .infinity)
-						.background(Color(UIColor.secondarySystemBackground))
-						.cornerRadius(10)
-						
+						.padding([.leading, .trailing])
 						Spacer()
 					}
-					.padding([.leading, .trailing])
 				}
 				
 				VStack {

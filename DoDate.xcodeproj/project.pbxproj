@@ -29,6 +29,8 @@
 		8680063725607E22003E45DE /* DueDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063525607E22003E45DE /* DueDatesView.swift */; };
 		8680063D25607E57003E45DE /* DoDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063C25607E57003E45DE /* DoDatesView.swift */; };
 		8680063E25607E57003E45DE /* DoDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063C25607E57003E45DE /* DoDatesView.swift */; };
+		86F71997257309A000686B25 /* ProjectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F71996257309A000686B25 /* ProjectCategoryView.swift */; };
+		86F71998257309A000686B25 /* ProjectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F71996257309A000686B25 /* ProjectCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 		8680062E25607DD4003E45DE /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		8680063525607E22003E45DE /* DueDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDatesView.swift; sourceTree = "<group>"; };
 		8680063C25607E57003E45DE /* DoDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoDatesView.swift; sourceTree = "<group>"; };
+		86F71996257309A000686B25 /* ProjectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,7 @@
 				8680063C25607E57003E45DE /* DoDatesView.swift */,
 				8680063525607E22003E45DE /* DueDatesView.swift */,
 				8680062E25607DD4003E45DE /* ProjectsView.swift */,
+				86F71996257309A000686B25 /* ProjectCategoryView.swift */,
 				8680062725607DA8003E45DE /* ToDoView.swift */,
 				8600EF712571ED4F0001AB23 /* DayView.swift */,
 				864D0998255F92AF00FAB092 /* Persistence.swift */,
@@ -344,6 +348,7 @@
 				8680063D25607E57003E45DE /* DoDatesView.swift in Sources */,
 				8600EF722571ED4F0001AB23 /* DayView.swift in Sources */,
 				864D09C6255F92B000FAB092 /* Persistence.swift in Sources */,
+				86F71997257309A000686B25 /* ProjectCategoryView.swift in Sources */,
 				864D09C0255F92B000FAB092 /* DoDate.xcdatamodeld in Sources */,
 				864D09C4255F92B000FAB092 /* ContentView.swift in Sources */,
 				8680062825607DA8003E45DE /* ToDoView.swift in Sources */,
@@ -360,6 +365,7 @@
 				8680063E25607E57003E45DE /* DoDatesView.swift in Sources */,
 				8600EF732571ED4F0001AB23 /* DayView.swift in Sources */,
 				864D09C7255F92B000FAB092 /* Persistence.swift in Sources */,
+				86F71998257309A000686B25 /* ProjectCategoryView.swift in Sources */,
 				864D09C1255F92B000FAB092 /* DoDate.xcdatamodeld in Sources */,
 				864D09C5255F92B000FAB092 /* ContentView.swift in Sources */,
 				8680062925607DA8003E45DE /* ToDoView.swift in Sources */,
