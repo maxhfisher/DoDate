@@ -91,14 +91,23 @@ enum ProjectCategory: String, CaseIterable {
 }
 
 struct ProjectCategoryView: View {
-	let isSmall = false
 	let category: ProjectCategory
+	let isSmall: Bool
+	
+	init(category: ProjectCategory, isSmall: Bool) {
+		self.category = category
+		self.isSmall = isSmall
+	}
+	init(category: ProjectCategory) {
+		self.category = category
+		self.isSmall = false
+	}
 	
     var body: some View {
 		Image(systemName: category.iconName)
 			.font(isSmall ? .title:.largeTitle)
 			.padding()
-			.frame(width: isSmall ? 25:75)
+			.frame(width: isSmall ? 50:75)
 			.background(category.color)
 			.clipShape(Circle())
 			.accessibility(label: Text(category.rawValue))
@@ -108,7 +117,7 @@ struct ProjectCategoryView: View {
 struct ProjectCategoryView_Previews: PreviewProvider {
     static var previews: some View {
 		ForEach(ProjectCategory.allCases, id: \.self) { cat in
-			ProjectCategoryView(category: cat)
+			ProjectCategoryView(category: cat, isSmall: true)
 		}
     }
 }
