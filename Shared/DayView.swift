@@ -73,12 +73,6 @@ struct DayView: View {
 		}
     }
 	
-	private static func dateString(from dateComponents: DateComponents, withFormat format: String) -> String {
-		let date = Calendar.current.date(from: dateComponents)!
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = format
-		return dateFormatter.string(from: date)
-	}
 }
 
 struct DayView_Previews: PreviewProvider {

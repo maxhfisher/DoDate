@@ -31,6 +31,8 @@
 		8680063E25607E57003E45DE /* DoDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680063C25607E57003E45DE /* DoDatesView.swift */; };
 		86F71997257309A000686B25 /* ProjectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F71996257309A000686B25 /* ProjectCategoryView.swift */; };
 		86F71998257309A000686B25 /* ProjectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F71996257309A000686B25 /* ProjectCategoryView.swift */; };
+		86F719A6257451FF00686B25 /* AssortedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F719A5257451FF00686B25 /* AssortedExtensions.swift */; };
+		86F719A7257451FF00686B25 /* AssortedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F719A5257451FF00686B25 /* AssortedExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,7 @@
 		8680063525607E22003E45DE /* DueDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDatesView.swift; sourceTree = "<group>"; };
 		8680063C25607E57003E45DE /* DoDatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoDatesView.swift; sourceTree = "<group>"; };
 		86F71996257309A000686B25 /* ProjectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCategoryView.swift; sourceTree = "<group>"; };
+		86F719A5257451FF00686B25 /* AssortedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssortedExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,7 @@
 				86F71996257309A000686B25 /* ProjectCategoryView.swift */,
 				8680062725607DA8003E45DE /* ToDoView.swift */,
 				8600EF712571ED4F0001AB23 /* DayView.swift */,
+				86F719A5257451FF00686B25 /* AssortedExtensions.swift */,
 				864D0998255F92AF00FAB092 /* Persistence.swift */,
 				864D0999255F92B000FAB092 /* Assets.xcassets */,
 				864D0994255F92AF00FAB092 /* DoDate.xcdatamodeld */,
@@ -343,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8680062F25607DD4003E45DE /* ProjectsView.swift in Sources */,
+				86F719A6257451FF00686B25 /* AssortedExtensions.swift in Sources */,
 				8680063625607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C2255F92B000FAB092 /* DoDateApp.swift in Sources */,
 				8680063D25607E57003E45DE /* DoDatesView.swift in Sources */,
@@ -360,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8680063025607DD4003E45DE /* ProjectsView.swift in Sources */,
+				86F719A7257451FF00686B25 /* AssortedExtensions.swift in Sources */,
 				8680063725607E22003E45DE /* DueDatesView.swift in Sources */,
 				864D09C3255F92B000FAB092 /* DoDateApp.swift in Sources */,
 				8680063E25607E57003E45DE /* DoDatesView.swift in Sources */,
