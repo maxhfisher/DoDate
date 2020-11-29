@@ -13,7 +13,7 @@ struct DayView: View {
     var body: some View {
 		VStack {
 			HStack {
-				Text(DayView.dateString(from: day.date))
+				Text(DayView.dateString(from: day.date, withFormat: "EEEE, MMMM dd"))
 					.font(.title)
 					.fontWeight(.bold)
 				Spacer()
@@ -24,15 +24,59 @@ struct DayView: View {
 					.foregroundColor(.secondary)
 					.padding()
 			} else {
-				
+				HStack {
+					VStack(alignment: .leading) {
+						if !day.doDates.isEmpty {
+							Text("To Do")
+								.font(.title2)
+								.fontWeight(.semibold)
+							HStack {
+								ForEach(day.doDates, id: \.self) { doDate in
+									HStack {
+										ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!, isSmall: true)
+										VStack(alignment: .leading) {
+											Text(doDate.task!)
+												.font(.title3)
+											Text(doDate.dueDate!.name!)
+												.font(.caption)
+												.fontWeight(.light)
+											Text("Due \(DayView.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
+												.font(.caption)
+												.fontWeight(.light)
+										}
+									}
+								}
+							}
+						}
+						if !day.dueDates.isEmpty {
+							Text("Due")
+								.font(.title2)
+								.fontWeight(.semibold)
+							HStack {
+								ForEach(day.dueDates, id: \.self) { dueDate in
+									HStack {
+										ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project!.category!)!, isSmall: true)
+										VStack(alignment: .leading) {
+											Text(dueDate.name!)
+												.font(.title3)
+											Text(dueDate.project!.name!)
+												.font(.caption)
+										}
+									}
+								}
+							}
+						}
+					}
+					Spacer()
+				}
 			}
 		}
     }
 	
-	private static func dateString(from dateComponents: DateComponents) -> String {
+	private static func dateString(from dateComponents: DateComponents, withFormat format: String) -> String {
 		let date = Calendar.current.date(from: dateComponents)!
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "EEEE, MMMM dd"
+		dateFormatter.dateFormat = format
 		return dateFormatter.string(from: date)
 	}
 }
