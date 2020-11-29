@@ -104,6 +104,8 @@ struct ProjectCategoryView: View {
 
 struct ProjectCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-		ProjectCategoryView(category: .work)
+		ForEach(ProjectCategory.allCases, id: \.self) { cat in
+			ProjectCategoryView(category: cat)
+		}
     }
 }
