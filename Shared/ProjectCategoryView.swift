@@ -91,13 +91,14 @@ enum ProjectCategory: String, CaseIterable {
 }
 
 struct ProjectCategoryView: View {
+	let isSmall = false
 	let category: ProjectCategory
 	
     var body: some View {
 		Image(systemName: category.iconName)
-			.font(.largeTitle)
+			.font(isSmall ? .title:.largeTitle)
 			.padding()
-			.frame(width: 75, height: 75)
+			.frame(width: isSmall ? 25:75)
 			.background(category.color)
 			.clipShape(Circle())
 			.accessibility(label: Text(category.rawValue))
