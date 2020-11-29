@@ -13,7 +13,7 @@ struct DayView: View {
     var body: some View {
 		VStack {
 			HStack {
-				Text(DayView.dateString(from: day.date, withFormat: "EEEE, MMMM dd"))
+				Text(Date.dateString(from: day.date, withFormat: "EEEE, MMMM dd"))
 					.font(.title)
 					.fontWeight(.bold)
 				Spacer()
@@ -40,7 +40,7 @@ struct DayView: View {
 											Text(doDate.dueDate!.name!)
 												.font(.caption)
 												.fontWeight(.light)
-											Text("Due \(DayView.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
+											Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
 												.font(.caption)
 												.fontWeight(.light)
 										}
