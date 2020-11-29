@@ -58,6 +58,7 @@ struct NewProjectView: View {
 	
 	@State private var name = ""
 	@State private var details = ""
+	@State private var categorySelection: ProjectCategory?
 	
 	@State private var showingErrorAlert = false
 	
@@ -69,6 +70,10 @@ struct NewProjectView: View {
 					TextField("Details", text: $details)
 				}
 				
+				Section(header: Text("Category")) {
+					CategorySelectionView(categorySelection: $categorySelection)
+				}
+				
 				Section {
 					HStack {
 						Spacer()
@@ -76,13 +81,14 @@ struct NewProjectView: View {
 							let hapticGenerator = UINotificationFeedbackGenerator()
 							hapticGenerator.prepare()
 							
-							if name.isEmpty || details.isEmpty {
+							if name.isEmpty || details.isEmpty || categorySelection == nil {
 								hapticGenerator.notificationOccurred(.error)
 							} else {
 								do {
 									let newProject = Project(context: context)
 									newProject.name = name
 									newProject.details = details
+									newProject.category = categorySelection!.rawValue
 									newProject.id = UUID()
 									try context.save()
 									hapticGenerator.notificationOccurred(.success)
@@ -104,6 +110,27 @@ struct NewProjectView: View {
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle("New Project")
 			.navigationBarItems(trailing: Button("Cancel") { presentationMode.wrappedValue.dismiss() })
+		}
+	}
+	
+	private struct CategorySelectionView: View {
+		@Binding var categorySelection: ProjectCategory?
+		
+		var body: some View {
+			ScrollView(.horizontal) {
+				HStack {
+					ForEach(ProjectCategory.allCases, id: \.self) { category in
+						ProjectCategoryView(category: category)
+							.shadow(radius: 5)
+							.overlay(categorySelection == category ? Circle().stroke(Color.accentColor, lineWidth: 7):Circle().stroke(Color.clear, lineWidth: 0))
+							.padding()
+							.onTapGesture {
+								categorySelection = category
+							}
+							.accessibilityAddTraits(categorySelection == category ? [.isButton, .isSelected]:[.isButton])
+					}
+				}
+			}
 		}
 	}
 }
