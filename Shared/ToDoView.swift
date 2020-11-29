@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ToDoView: View {
-	@State private var showingNewProjectsView = false
-	@State private var showingNewDueDateView = false
-	@State private var showingNewDoDateView = false
+	@State private var showingSheet = false
+	@State private var sheetToShow: SheetToShow = .newProjectView
 	
 	@FetchRequest(entity: DoDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) private var doDates: FetchedResults<DoDate>
 	@FetchRequest(entity: DueDate.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \DueDate.date, ascending: true)], predicate: NSPredicate(format: "date > %@", Calendar.current.startOfDay(for: Date()) as NSDate)) private var dueDates: FetchedResults<DueDate>
@@ -73,28 +72,45 @@ struct ToDoView: View {
 					Spacer()
 					HStack {
 						Spacer()
-						PlusButtonView(showingNewProjectsView: $showingNewProjectsView, showingNewDueDateView: $showingNewDueDateView, showingNewDoDateView: $showingNewDoDateView)
+						PlusButtonView(showingSheet: $showingSheet, sheetToShow: $sheetToShow)
 							.padding()
 					}
 				}
 			}
 			.navigationTitle("DoDate")
 		}
-		.sheet(isPresented: $showingNewProjectsView, content: { NewProjectView() })
-		.sheet(isPresented: $showingNewDueDateView, content: { NewDueDateView() })
-		.sheet(isPresented: $showingNewDoDateView, content: { NewDoDateView() })
+		.sheet(isPresented: $showingSheet, content: {
+			if sheetToShow == .newProjectView {
+				NewProjectView()
+			} else if sheetToShow == .newDueDateView {
+				NewDueDateView()
+			} else {
+				NewDoDateView()
+			}
+		})
+		
     }
 	
-	struct PlusButtonView: View {
-		@Binding var showingNewProjectsView: Bool
-		@Binding var showingNewDueDateView: Bool
-		@Binding var showingNewDoDateView: Bool
+	private struct PlusButtonView: View {
+		@Binding var showingSheet: Bool
+		@Binding var sheetToShow: SheetToShow
 		
 		var body: some View {
 			Menu {
-				Button("Add Project") { showingNewProjectsView = true }
-				Button("Add Due Date") { showingNewDueDateView = true }.accessibility(hint: Text("Add a date when something is due"))
-				Button("Add Do Date") { showingNewDoDateView = true }.accessibility(hint: Text("Add a date to do something"))
+				Button("Add Project") {
+					sheetToShow = .newProjectView
+					showingSheet = true
+				}
+				Button("Add Due Date") {
+					sheetToShow = .newDueDateView
+					showingSheet = true
+				}
+				.accessibility(hint: Text("Add a date when something is due"))
+				Button("Add Do Date") {
+					sheetToShow = .newDoDateView
+					showingSheet = true
+				}
+				.accessibility(hint: Text("Add a date to do something"))
 			} label: { Image(systemName: "plus")
 				.font(.system(size: 50))
 				.foregroundColor(.white)
@@ -103,6 +119,10 @@ struct ToDoView: View {
 				.clipShape(Circle())
 			}
 		}
+	}
+	
+	private enum SheetToShow {
+		case newProjectView, newDueDateView, newDoDateView
 	}
 }
 
