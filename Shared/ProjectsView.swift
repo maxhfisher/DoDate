@@ -23,10 +23,19 @@ struct ProjectsView: View {
 				} else {
 					List {
 						ForEach(projects,id: \.self) { project in
-							Text(project.name ?? "")
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: project.category!)!)
+								VStack(alignment: .leading) {
+									Text(project.name!)
+										.font(.title)
+										.fontWeight(.semibold)
+									Text(project.details!)
+								}
+							}
 						}
 						.onDelete(perform: delete)
 					}
+					.listStyle(InsetGroupedListStyle())
 				}
 			}
 			.navigationTitle("Projects")
