@@ -97,6 +97,7 @@ struct ProjectCategoryView: View {
 		Image(systemName: category.iconName)
 			.font(.largeTitle)
 			.padding()
+			.frame(width: 75, height: 75)
 			.background(category.color)
 			.clipShape(Circle())
 			.accessibility(label: Text(category.rawValue))
