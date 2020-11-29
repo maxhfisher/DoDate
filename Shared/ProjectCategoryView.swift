@@ -99,6 +99,7 @@ struct ProjectCategoryView: View {
 			.padding()
 			.background(category.color)
 			.clipShape(Circle())
+			.accessibility(label: Text(category.rawValue))
     }
 }
 
