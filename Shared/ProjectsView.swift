@@ -121,7 +121,7 @@ struct NewProjectView: View {
 				HStack {
 					ForEach(ProjectCategory.allCases, id: \.self) { category in
 						ProjectCategoryView(category: category)
-							.shadow(radius: 5)
+							.shadow(radius: categorySelection == category ? 10:0)
 							.overlay(categorySelection == category ? Circle().stroke(Color.accentColor, lineWidth: 7):Circle().stroke(Color.clear, lineWidth: 0))
 							.padding()
 							.onTapGesture {
