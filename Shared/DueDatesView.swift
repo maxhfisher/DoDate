@@ -24,10 +24,27 @@ struct DueDatesView: View {
 				} else {
 					List {
 						ForEach(dueDates, id: \.self) { dueDate in
-							Text(dueDate.name ?? "")
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project!.category!)!)
+								VStack(alignment: .leading) {
+									Text(dueDate.name!)
+										.font(.title3)
+										.fontWeight(.semibold)
+										.lineLimit(1)
+									Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: dueDate.date!), withFormat: "MM/dd/yy"))
+										.font(.headline)
+									Text(dueDate.project!.name!)
+										.font(.subheadline)
+										.lineLimit(1)
+									Text(dueDate.details!)
+										.font(.caption)
+										.lineLimit(1)
+								}
+							}
 						}
 						.onDelete(perform: delete)
 					}
+					.listStyle(InsetGroupedListStyle())
 				}
 			}
 			.navigationTitle("Due Dates")
