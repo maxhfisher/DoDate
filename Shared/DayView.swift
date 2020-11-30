@@ -37,9 +37,11 @@ struct DayView: View {
 										VStack(alignment: .leading) {
 											Text(doDate.task!)
 												.font(.title3)
+												.lineLimit(1)
 											Text(doDate.dueDate!.name!)
 												.font(.caption)
 												.fontWeight(.light)
+												.lineLimit(1)
 											Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
 												.font(.caption)
 												.fontWeight(.light)
@@ -59,8 +61,10 @@ struct DayView: View {
 										VStack(alignment: .leading) {
 											Text(dueDate.name!)
 												.font(.title3)
+												.lineLimit(1)
 											Text(dueDate.project!.name!)
 												.font(.caption)
+												.lineLimit(1)
 										}
 									}
 								}
