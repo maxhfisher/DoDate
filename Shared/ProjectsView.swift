@@ -29,7 +29,9 @@ struct ProjectsView: View {
 									Text(project.name!)
 										.font(.title)
 										.fontWeight(.semibold)
+										.lineLimit(1)
 									Text(project.details!)
+										.lineLimit(3)
 								}
 							}
 						}
