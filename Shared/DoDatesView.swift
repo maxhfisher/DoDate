@@ -25,7 +25,22 @@ struct DoDatesView: View {
 				} else {
 					List {
 						ForEach(doDates, id: \.id) { doDate in
-							Text(doDate.task ?? "")
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!)
+								VStack(alignment: .leading) {
+									Text(doDate.task!)
+										.font(.title3)
+										.fontWeight(.semibold)
+										.lineLimit(1)
+									Text(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.date!), withFormat: "MM/dd/yy"))
+										.font(.headline)
+									Text(doDate.dueDate!.name!)
+										.font(.headline)
+										.lineLimit(1)
+									Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yy"))")
+										.font(.caption)
+								}
+							}
 						}
 						.onDelete(perform: delete)
 					}
