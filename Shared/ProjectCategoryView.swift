@@ -91,10 +91,10 @@ enum ProjectCategory: String, CaseIterable {
 }
 
 struct ProjectCategoryView: View {
-	let category: ProjectCategory
+	let category: ProjectCategory?
 	let isSmall: Bool
 	
-	init(category: ProjectCategory, isSmall: Bool) {
+	init(category: ProjectCategory?, isSmall: Bool) {
 		self.category = category
 		self.isSmall = isSmall
 	}
@@ -104,13 +104,13 @@ struct ProjectCategoryView: View {
 	}
 	
     var body: some View {
-		Image(systemName: category.iconName)
+		Image(systemName: category?.iconName ?? "")
 			.font(isSmall ? .title:.largeTitle)
 			.padding()
 			.frame(width: isSmall ? 50:75, height: isSmall ? 50:75)
-			.background(category.color)
+			.background(category?.color ?? Color.clear)
 			.clipShape(Circle())
-			.accessibility(label: Text(category.rawValue))
+			.accessibility(label: Text(category?.rawValue ?? ""))
     }
 }
 
