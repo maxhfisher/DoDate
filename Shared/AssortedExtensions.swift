@@ -15,3 +15,7 @@ extension Date {
 		return dateFormatter.string(from: date)
 	}
 }
+
+extension String: LocalizedError {
+	public var errorDescription: String? { self }
+}
