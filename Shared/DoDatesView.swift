@@ -69,7 +69,7 @@ struct NewDoDateView: View {
 	@State private var projectSelection: Project?
 	@State private var dueDateSelection: DueDate?
 	@State private var task = ""
-	@State private var date = Calendar.current.startOfDay(for: Date(timeIntervalSinceNow: 86400)).addingTimeInterval(-1)
+	@State private var date = Calendar.current.startOfDay(for: Date(timeIntervalSinceNow: 86400 * 2)).addingTimeInterval(-1)
 	@State private var notify = false
 	
 	var body: some View {
