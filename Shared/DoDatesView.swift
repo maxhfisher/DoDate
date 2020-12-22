@@ -26,18 +26,20 @@ struct DoDatesView: View {
 					List {
 						ForEach(doDates, id: \.id) { doDate in
 							HStack {
-								ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!)
+								if doDate.project != nil {
+									ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!)
+								}
 								VStack(alignment: .leading) {
-									Text(doDate.task!)
+									Text(doDate.task ?? "")
 										.font(.title3)
 										.fontWeight(.semibold)
 										.lineLimit(1)
-									Text(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.date!), withFormat: "MM/dd/yy"))
+									Text(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.date ?? Date()), withFormat: "MM/dd/yy"))
 										.font(.headline)
-									Text(doDate.dueDate!.name!)
+									Text(doDate.dueDate?.name ?? "")
 										.font(.headline)
 										.lineLimit(1)
-									Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yy"))")
+									Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.dueDate?.date ?? Date()), withFormat: "MM/dd/yy"))")
 										.font(.caption)
 								}
 							}
