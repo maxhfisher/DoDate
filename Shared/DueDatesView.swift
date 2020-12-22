@@ -24,23 +24,7 @@ struct DueDatesView: View {
 				} else {
 					List {
 						ForEach(dueDates, id: \.self) { dueDate in
-							HStack {
-								ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project!.category!)!)
-								VStack(alignment: .leading) {
-									Text(dueDate.name!)
-										.font(.title3)
-										.fontWeight(.semibold)
-										.lineLimit(1)
-									Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: dueDate.date!), withFormat: "MM/dd/yy"))
-										.font(.headline)
-									Text(dueDate.project!.name!)
-										.font(.subheadline)
-										.lineLimit(1)
-									Text(dueDate.details!)
-										.font(.caption)
-										.lineLimit(1)
-								}
-							}
+							DueDateIndividualView(dueDate: dueDate)
 						}
 						.onDelete(perform: delete)
 					}
@@ -64,6 +48,30 @@ struct DueDatesView: View {
 			context.delete(dueDate)
 		}
 		try? context.save()
+	}
+}
+
+struct DueDateIndividualView: View {
+	let dueDate: DueDate
+	
+	var body: some View {
+		HStack {
+			ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project!.category!)!)
+			VStack(alignment: .leading) {
+				Text(dueDate.name!)
+					.font(.title3)
+					.fontWeight(.semibold)
+					.lineLimit(1)
+				Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: dueDate.date!), withFormat: "MM/dd/yy"))
+					.font(.headline)
+				Text(dueDate.project!.name!)
+					.font(.subheadline)
+					.lineLimit(1)
+				Text(dueDate.details!)
+					.font(.caption)
+					.lineLimit(1)
+			}
+		}
 	}
 }
 

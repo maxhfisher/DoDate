@@ -25,24 +25,7 @@ struct DoDatesView: View {
 				} else {
 					List {
 						ForEach(doDates, id: \.id) { doDate in
-							HStack {
-								if doDate.project != nil {
-									ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!)
-								}
-								VStack(alignment: .leading) {
-									Text(doDate.task ?? "")
-										.font(.title3)
-										.fontWeight(.semibold)
-										.lineLimit(1)
-									Text(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.date ?? Date()), withFormat: "MM/dd/yy"))
-										.font(.headline)
-									Text(doDate.dueDate?.name ?? "")
-										.font(.headline)
-										.lineLimit(1)
-									Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.dueDate?.date ?? Date()), withFormat: "MM/dd/yy"))")
-										.font(.caption)
-								}
-							}
+							DoDateIndividualView(doDate: doDate)
 						}
 						.onDelete(perform: delete)
 					}
@@ -61,6 +44,31 @@ struct DoDatesView: View {
 			context.delete(doDates[i])
 		}
 		try? context.save()
+	}
+}
+
+struct DoDateIndividualView: View {
+	let doDate: DoDate
+	
+	var body: some View {
+		HStack {
+			if doDate.project != nil {
+				ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!)
+			}
+			VStack(alignment: .leading) {
+				Text(doDate.task ?? "")
+					.font(.title3)
+					.fontWeight(.semibold)
+					.lineLimit(1)
+				Text(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.date ?? Date()), withFormat: "MM/dd/yy"))
+					.font(.headline)
+				Text(doDate.dueDate?.name ?? "")
+					.font(.headline)
+					.lineLimit(1)
+				Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.month, .day, .year], from: doDate.dueDate?.date ?? Date()), withFormat: "MM/dd/yy"))")
+					.font(.caption)
+			}
+		}
 	}
 }
 

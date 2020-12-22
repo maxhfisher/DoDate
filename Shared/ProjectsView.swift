@@ -22,16 +22,18 @@ struct ProjectsView: View {
 						.foregroundColor(.secondary)
 				} else {
 					List {
-						ForEach(projects,id: \.self) { project in
-							HStack {
-								ProjectCategoryView(category: ProjectCategory(rawValue: project.category!)!)
-								VStack(alignment: .leading) {
-									Text(project.name!)
-										.font(.title)
-										.fontWeight(.semibold)
-										.lineLimit(1)
-									Text(project.details!)
-										.lineLimit(3)
+						ForEach(projects ,id: \.self) { project in
+							NavigationLink(destination: ProjectDetailView(project: project)) {
+								HStack {
+									ProjectCategoryView(category: ProjectCategory(rawValue: project.category!)!)
+									VStack(alignment: .leading) {
+										Text(project.name!)
+											.font(.title)
+											.fontWeight(.semibold)
+											.lineLimit(1)
+										Text(project.details!)
+											.lineLimit(3)
+									}
 								}
 							}
 						}

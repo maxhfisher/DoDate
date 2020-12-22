@@ -98,7 +98,7 @@ struct ProjectCategoryView: View {
 		self.category = category
 		self.isSmall = isSmall
 	}
-	init(category: ProjectCategory) {
+	init(category: ProjectCategory?) {
 		self.category = category
 		self.isSmall = false
 	}
