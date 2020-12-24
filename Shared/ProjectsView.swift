@@ -125,23 +125,23 @@ struct NewProjectView: View {
 			.navigationBarItems(trailing: Button("Cancel") { presentationMode.wrappedValue.dismiss() })
 		}
 	}
+}
+
+struct CategorySelectionView: View {
+	@Binding var categorySelection: ProjectCategory?
 	
-	private struct CategorySelectionView: View {
-		@Binding var categorySelection: ProjectCategory?
-		
-		var body: some View {
-			ScrollView(.horizontal) {
-				HStack {
-					ForEach(ProjectCategory.allCases, id: \.self) { category in
-						ProjectCategoryView(category: category)
-							.shadow(radius: categorySelection == category ? 10:0)
-							.overlay(categorySelection == category ? Circle().stroke(Color.accentColor, lineWidth: 7):Circle().stroke(Color.clear, lineWidth: 0))
-							.padding()
-							.onTapGesture {
-								categorySelection = category
-							}
-							.accessibilityAddTraits(categorySelection == category ? [.isButton, .isSelected]:[.isButton])
-					}
+	var body: some View {
+		ScrollView(.horizontal) {
+			HStack {
+				ForEach(ProjectCategory.allCases, id: \.self) { category in
+					ProjectCategoryView(category: category)
+						.shadow(radius: categorySelection == category ? 10:0)
+						.overlay(categorySelection == category ? Circle().stroke(Color.accentColor, lineWidth: 7):Circle().stroke(Color.clear, lineWidth: 0))
+						.padding()
+						.onTapGesture {
+							categorySelection = category
+						}
+						.accessibilityAddTraits(categorySelection == category ? [.isButton, .isSelected]:[.isButton])
 				}
 			}
 		}
