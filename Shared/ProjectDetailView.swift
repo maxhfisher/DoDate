@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProjectDetailView: View {
 	@Environment(\.managedObjectContext) var context
+	@Environment(\.presentationMode) var presentationMode
 	
 	let project: Project
 	
@@ -77,12 +78,13 @@ struct ProjectDetailView: View {
 		}
 		.navigationBarTitle(project.name ?? "")
 		.navigationBarItems(trailing: Button("Edit") { showingEditView = true })
-		.sheet(isPresented: $showingEditView, content: { EditProjectView(project: project).environment(\.managedObjectContext, context) })
+		.sheet(isPresented: $showingEditView, content: { EditProjectView(project: project){ presentationMode.wrappedValue.dismiss() }.environment(\.managedObjectContext, context) })
     }
 }
 
 struct EditProjectView: View {
 	private let project: Project
+	private let onDelete: () -> Void
 	
 	@Environment(\.managedObjectContext) private var context
 	@Environment(\.presentationMode) private var presentationMode
@@ -97,11 +99,12 @@ struct EditProjectView: View {
 	@State private var showingErrorAlert = false
 	@State private var shwowingDeleteAlert = false
 	
-	init(project: Project) {
+	init(project: Project, onDelete: @escaping () -> Void) {
 		_name = State(initialValue: project.name!)
 		_details = State(initialValue: project.details!)
 		_categorySelection = State(initialValue: ProjectCategory(rawValue: project.category!))
 		self.project = project
+		self.onDelete = onDelete
 	}
 	
 	var body: some View {
@@ -225,6 +228,8 @@ struct EditProjectView: View {
 			context.delete(dueDate)
 		}
 		context.delete(project)
+		presentationMode.wrappedValue.dismiss()
+		onDelete()
 	}
 	
 	private func deleteDueDate(atOffsets offsets: IndexSet) {

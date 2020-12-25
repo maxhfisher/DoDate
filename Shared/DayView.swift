@@ -33,7 +33,7 @@ struct DayView: View {
 							HStack {
 								ForEach(day.doDates, id: \.self) { doDate in
 									HStack {
-										ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project!.category!)!, isSmall: true)
+										ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project?.category ?? ""), isSmall: true)
 										VStack(alignment: .leading) {
 											Text(doDate.task!)
 												.font(.title3)
@@ -57,12 +57,12 @@ struct DayView: View {
 							HStack {
 								ForEach(day.dueDates, id: \.self) { dueDate in
 									HStack {
-										ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project!.category!)!, isSmall: true)
+										ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project?.category ?? ""), isSmall: true)
 										VStack(alignment: .leading) {
 											Text(dueDate.name!)
 												.font(.title3)
 												.lineLimit(1)
-											Text(dueDate.project!.name!)
+											Text(dueDate.project?.name ?? "")
 												.font(.caption)
 												.lineLimit(1)
 										}
