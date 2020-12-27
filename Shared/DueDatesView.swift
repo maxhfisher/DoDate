@@ -24,7 +24,9 @@ struct DueDatesView: View {
 				} else {
 					List {
 						ForEach(dueDates, id: \.self) { dueDate in
-							DueDateIndividualView(dueDate: dueDate)
+							NavigationLink(destination: DueDateDetailView(dueDate: dueDate)) {
+								DueDateIndividualView(dueDate: dueDate)
+							}
 						}
 						.onDelete(perform: delete)
 					}

@@ -34,28 +34,31 @@ struct ProjectDetailView: View {
 						.font(.title)
 						.fontWeight(.bold)
 					ForEach(0..<project.dueDates!.count, id: \.self) { i in
-						HStack {
-							ProjectCategoryView(category: ProjectCategory(rawValue: project.category!), isSmall: true)
-							VStack(alignment: .leading) {
-								Text((project.dueDates!.allObjects[i] as! DueDate).name!)
-									.font(.title3)
-									.fontWeight(.bold)
-									.lineLimit(1)
-								Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (project.dueDates!.allObjects[i] as! DueDate).date!), withFormat: "MM/dd/yyyy"))
-									.font(.caption)
-								Text((project.dueDates!.allObjects[i] as! DueDate).details!)
-									.font(.caption)
-									.lineLimit(2)
-								Spacer()
+						NavigationLink(destination: DueDateDetailView(dueDate: project.dueDates!.allObjects[i] as! DueDate)) {
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: project.category!), isSmall: true)
+								VStack(alignment: .leading) {
+									Text((project.dueDates!.allObjects[i] as! DueDate).name!)
+										.font(.title3)
+										.fontWeight(.bold)
+										.lineLimit(1)
+									Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (project.dueDates!.allObjects[i] as! DueDate).date!), withFormat: "MM/dd/yyyy"))
+										.font(.caption)
+									Text((project.dueDates!.allObjects[i] as! DueDate).details!)
+										.font(.caption)
+										.lineLimit(2)
+									Spacer()
+								}
 							}
 						}
+						.foregroundColor(.primary)
 					}
 					.padding(.bottom)
 					
 					Text("Do Dates")
 						.font(.title)
 						.fontWeight(.bold)
-					ForEach(0..<project.doDates!.count, id: \.self) { i in
+					ForEach(0..<project.doDates!.count) { i in
 						HStack {
 							ProjectCategoryView(category: ProjectCategory(rawValue: project.category!), isSmall: true)
 							VStack(alignment: .leading) {

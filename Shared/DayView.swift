@@ -56,17 +56,20 @@ struct DayView: View {
 								.fontWeight(.semibold)
 							HStack {
 								ForEach(day.dueDates, id: \.self) { dueDate in
-									HStack {
-										ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project?.category ?? ""), isSmall: true)
-										VStack(alignment: .leading) {
-											Text(dueDate.name!)
-												.font(.title3)
-												.lineLimit(1)
-											Text(dueDate.project?.name ?? "")
-												.font(.caption)
-												.lineLimit(1)
+									NavigationLink(destination: DueDateDetailView(dueDate: dueDate)) {
+										HStack {
+											ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project?.category ?? ""), isSmall: true)
+											VStack(alignment: .leading) {
+												Text(dueDate.name!)
+													.font(.title3)
+													.lineLimit(1)
+												Text(dueDate.project?.name ?? "")
+													.font(.caption)
+													.lineLimit(1)
+											}
 										}
 									}
+									.foregroundColor(.primary)
 								}
 							}
 						}
