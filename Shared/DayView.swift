@@ -32,21 +32,28 @@ struct DayView: View {
 								.fontWeight(.semibold)
 							HStack {
 								ForEach(day.doDates, id: \.self) { doDate in
-									HStack {
-										ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project?.category ?? ""), isSmall: true)
-										VStack(alignment: .leading) {
-											Text(doDate.task!)
-												.font(.title3)
-												.lineLimit(1)
-											Text(doDate.dueDate!.name!)
-												.font(.caption)
-												.fontWeight(.light)
-												.lineLimit(1)
-											Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
-												.font(.caption)
-												.fontWeight(.light)
+									NavigationLink(destination: DoDateDetailView(doDate: doDate)) {
+										HStack {
+											ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project?.category ?? ""), isSmall: true)
+											VStack(alignment: .leading) {
+												Text(doDate.task!)
+													.font(.title3)
+													.lineLimit(1)
+												Text(doDate.dueDate!.name!)
+													.font(.caption)
+													.fontWeight(.light)
+													.lineLimit(1)
+												Text("Due \(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: doDate.dueDate!.date!), withFormat: "MM/dd/yyyy"))")
+													.font(.caption)
+													.fontWeight(.light)
+											}
+											Spacer()
+											Image(systemName: "chevron.right")
+												.foregroundColor(.secondary)
+												.padding()
 										}
 									}
+									.foregroundColor(.primary)
 								}
 							}
 						}
@@ -67,6 +74,10 @@ struct DayView: View {
 													.font(.caption)
 													.lineLimit(1)
 											}
+											Spacer()
+											Image(systemName: "chevron.right")
+												.foregroundColor(.secondary)
+												.padding()
 										}
 									}
 									.foregroundColor(.primary)
