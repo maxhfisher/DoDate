@@ -48,26 +48,45 @@ struct DueDateDetailView: View {
 									.font(.caption)
 									.lineLimit(3)
 							}
+							Spacer()
+							Image(systemName: "chevron.right")
+								.foregroundColor(.secondary)
+								.padding()
 						}
+						.padding(5)
 					}
+					.background(Color(UIColor.secondarySystemBackground))
+					.cornerRadius(10)
 					.foregroundColor(.primary)
 					.padding(.bottom)
 					
 					Text("Do Dates")
 						.font(.title)
 						.fontWeight(.bold)
+						.accessibility(hint: Text("Dates things are to be done"))
 					ForEach(0..<dueDate.doDates!.count) { i in
-						HStack {
-							ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project?.category ?? ""), isSmall: true)
-							VStack(alignment: .leading) {
-								Text((dueDate.doDates?.allObjects[i] as! DoDate).task!)
-									.font(.title3)
-									.fontWeight(.bold)
-									.lineLimit(1)
-								Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (dueDate.doDates?.allObjects[i] as! DoDate).date!), withFormat: "MM/dd/yyyy"))
-									.font(.caption)
+						NavigationLink(destination: DoDateDetailView(doDate: dueDate.doDates!.allObjects[i] as! DoDate)) {
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: dueDate.project?.category ?? ""), isSmall: true)
+								VStack(alignment: .leading) {
+									Text((dueDate.doDates?.allObjects[i] as! DoDate).task!)
+										.font(.title3)
+										.fontWeight(.bold)
+										.lineLimit(1)
+									Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (dueDate.doDates?.allObjects[i] as! DoDate).date!), withFormat: "MM/dd/yyyy"))
+										.font(.caption)
+								}
+								Spacer()
+								Image(systemName: "chevron.right")
+									.foregroundColor(.secondary)
+									.padding()
 							}
+							.padding(5)
 						}
+						.background(Color(UIColor.secondarySystemBackground))
+						.cornerRadius(10)
+						.foregroundColor(.primary)
+						.padding(.bottom, 3)
 					}
 				}
 				.padding([.leading, .trailing])
