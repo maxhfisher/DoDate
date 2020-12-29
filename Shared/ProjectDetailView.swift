@@ -33,6 +33,7 @@ struct ProjectDetailView: View {
 					Text("Due Dates")
 						.font(.title)
 						.fontWeight(.bold)
+						.accessibility(hint: Text("Date things are due"))
 					ForEach(0..<project.dueDates!.count, id: \.self) { i in
 						NavigationLink(destination: DueDateDetailView(dueDate: project.dueDates!.allObjects[i] as! DueDate)) {
 							HStack {
@@ -47,31 +48,49 @@ struct ProjectDetailView: View {
 									Text((project.dueDates!.allObjects[i] as! DueDate).details!)
 										.font(.caption)
 										.lineLimit(2)
-									Spacer()
 								}
+								Spacer()
+								Image(systemName: "chevron.right")
+									.foregroundColor(.secondary)
+									.padding()
 							}
+							.padding(5)
 						}
+						.background(Color(UIColor.secondarySystemBackground))
+						.cornerRadius(10)
 						.foregroundColor(.primary)
+						.padding(.bottom, 3)
 					}
-					.padding(.bottom)
 					
 					Text("Do Dates")
 						.font(.title)
 						.fontWeight(.bold)
+						.accessibility(hint: Text("Dates things are to be done"))
 					ForEach(0..<project.doDates!.count) { i in
-						HStack {
-							ProjectCategoryView(category: ProjectCategory(rawValue: project.category!), isSmall: true)
-							VStack(alignment: .leading) {
-								Text((project.doDates!.allObjects[i] as! DoDate).task!)
-									.font(.title3)
-									.fontWeight(.bold)
-									.lineLimit(1)
-								Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (project.doDates!.allObjects[i] as! DoDate).date!), withFormat: "MM/dd/yyyy"))
-									.font(.caption)
-								Text((project.doDates!.allObjects[i] as! DoDate).dueDate!.name!)
-									.font(.caption)
+						NavigationLink(destination: DoDateDetailView(doDate: project.doDates!.allObjects[i] as! DoDate)) {
+							HStack {
+								ProjectCategoryView(category: ProjectCategory(rawValue: project.category!), isSmall: true)
+								VStack(alignment: .leading) {
+									Text((project.doDates!.allObjects[i] as! DoDate).task!)
+										.font(.title3)
+										.fontWeight(.bold)
+										.lineLimit(1)
+									Text(Date.dateString(from: Calendar.current.dateComponents([.day, .month, .year], from: (project.doDates!.allObjects[i] as! DoDate).date!), withFormat: "MM/dd/yyyy"))
+										.font(.caption)
+									Text((project.doDates!.allObjects[i] as! DoDate).dueDate!.name!)
+										.font(.caption)
+								}
+								Spacer()
+								Image(systemName: "chevron.right")
+									.foregroundColor(.secondary)
+									.padding()
 							}
+							.padding(5)
 						}
+						.background(Color(UIColor.secondarySystemBackground))
+						.cornerRadius(10)
+						.foregroundColor(.primary)
+						.padding(.bottom, 3)
 					}
 					Spacer()
 				}
