@@ -25,7 +25,10 @@ struct DoDatesView: View {
 				} else {
 					List {
 						ForEach(doDates, id: \.id) { doDate in
-							DoDateIndividualView(doDate: doDate)
+							NavigationLink(destination: DoDateDetailView(doDate: doDate)) {
+								DoDateIndividualView(doDate: doDate)
+							}
+							.foregroundColor(.primary)
 						}
 						.onDelete(perform: delete)
 					}
