@@ -45,14 +45,19 @@ struct DoDateDetailView: View {
 							Spacer()
 							Image(systemName: "chevron.right")
 								.foregroundColor(.secondary)
+								.padding()
 						}
+						.padding(5)
 					}
+					.background(Color(UIColor.secondarySystemBackground))
+					.cornerRadius(10)
 					.foregroundColor(.primary)
 					.padding(.bottom)
 					
 					Text("Due Date")
 						.font(.title)
 						.fontWeight(.bold)
+						.accessibility(hint: Text("Date that this is due"))
 					NavigationLink(destination: DueDateDetailView(dueDate: doDate.dueDate!)) {
 						HStack {
 							ProjectCategoryView(category: ProjectCategory(rawValue: doDate.project?.category ?? ""), isSmall: true)
@@ -70,8 +75,12 @@ struct DoDateDetailView: View {
 							Spacer()
 							Image(systemName: "chevron.right")
 								.foregroundColor(.secondary)
+								.padding()
 						}
+						.padding(5)
 					}
+					.background(Color(UIColor.secondarySystemBackground))
+					.cornerRadius(10)
 					.foregroundColor(.primary)
 					.padding(.bottom)
 					
